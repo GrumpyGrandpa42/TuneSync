@@ -1,0 +1,82 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="TuneSync.App.Views.MainWindow"
+        Width="1100"
+        Height="720"
+        Title="TuneSync">
+  <Grid RowDefinitions="Auto,*,Auto,Auto" Margin="16" RowSpacing="12">
+    <StackPanel Orientation="Horizontal" Spacing="12" Grid.Row="0">
+      <Button Content="Load WAV" Command="{Binding LoadAudioCommand}" />
+      <TextBlock Text="{Binding AudioFileName}" VerticalAlignment="Center" />
+      <Button Content="Load Lyrics File" Command="{Binding LoadLyricsFileCommand}" />
+      <Button Content="Parse Lyrics" Command="{Binding ParseLyricsCommand}" />
+      <TextBlock Text="{Binding LyricsFileName}" VerticalAlignment="Center" />
+    </StackPanel>
+
+    <Grid Grid.Row="1" ColumnDefinitions="2*,3*" ColumnSpacing="16">
+      <Border BorderBrush="Gray" BorderThickness="1" Padding="8">
+        <DockPanel>
+          <TextBlock Text="Lyrics Lines" FontWeight="SemiBold" DockPanel.Dock="Top" Margin="0,0,0,8" />
+          <ListBox Items="{Binding LyricsLines}" SelectedItem="{Binding SelectedLine}">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Spacing="2">
+                  <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                  <TextBlock Text="{Binding TimingDisplay}" FontSize="12" Foreground="Gray" />
+                </StackPanel>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </DockPanel>
+      </Border>
+
+      <StackPanel Grid.Column="1" Spacing="12">
+        <Border BorderBrush="Gray" BorderThickness="1" Padding="12">
+          <StackPanel Spacing="8">
+            <TextBlock Text="Active Line" FontWeight="SemiBold" />
+            <TextBlock Text="{Binding SelectedLine.Text}" TextWrapping="Wrap" FontSize="16" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <TextBlock Text="Start:" FontWeight="SemiBold" />
+              <TextBlock Text="{Binding SelectedLine.StartDisplay}" />
+              <TextBlock Text="End:" FontWeight="SemiBold" Margin="12,0,0,0" />
+              <TextBlock Text="{Binding SelectedLine.EndDisplay}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Button Content="Mark Start" Command="{Binding MarkStartCommand}" />
+              <Button Content="Mark End" Command="{Binding MarkEndCommand}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <Button Content="Previous Line" Command="{Binding PreviousLineCommand}" />
+              <Button Content="Next Line" Command="{Binding NextLineCommand}" />
+            </StackPanel>
+          </StackPanel>
+        </Border>
+
+        <Border BorderBrush="Gray" BorderThickness="1" Padding="12">
+          <StackPanel Spacing="8">
+            <TextBlock Text="Lyrics Source" FontWeight="SemiBold" />
+            <TextBox Text="{Binding LyricsText}" AcceptsReturn="True" Height="200" />
+          </StackPanel>
+        </Border>
+      </StackPanel>
+    </Grid>
+
+    <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Padding="12">
+      <StackPanel Orientation="Horizontal" Spacing="12">
+        <Button Content="Play / Pause" Command="{Binding PlayPauseCommand}" />
+        <Button Content="Stop" Command="{Binding StopCommand}" />
+        <TextBlock Text="{Binding PlaybackStatus}" VerticalAlignment="Center" />
+      </StackPanel>
+    </Border>
+
+    <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="1" Padding="12">
+      <StackPanel Orientation="Horizontal" Spacing="12">
+        <Button Content="Export SRT" Command="{Binding ExportSrtCommand}" />
+        <TextBlock Text="{Binding ExportStatus}" VerticalAlignment="Center" />
+      </StackPanel>
+    </Border>
+  </Grid>
+</Window>
