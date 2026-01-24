@@ -26,6 +26,8 @@ public sealed class MainWindowViewModel : ObservableObject
     private string _playbackStatus = "Stopped";
     private string _exportStatus = string.Empty;
     private LyricLine? _selectedLine;
+    private bool _isSpaceDown;
+    private bool _hasStartedTiming;
 
     public MainWindowViewModel()
     {
@@ -97,6 +99,72 @@ public sealed class MainWindowViewModel : ObservableObject
     public RelayCommand NextLineCommand { get; }
     public RelayCommand ExportSrtCommand { get; }
 
+    public void HandleSpacePressed()
+    {
+        if (_isSpaceDown)
+        {
+            return;
+        }
+
+        _isSpaceDown = true;
+
+        if (!TryGetCurrentTime(out var position))
+        {
+            return;
+        }
+
+        EnsurePlaying();
+
+        if (LyricsLines.Count == 0)
+        {
+            ExportStatus = "Load and parse lyrics first.";
+            return;
+        }
+
+        if (!_hasStartedTiming)
+        {
+            SelectedLine ??= LyricsLines.FirstOrDefault();
+            _hasStartedTiming = true;
+        }
+        else
+        {
+            SelectedLine = GetNextLine();
+        }
+
+        if (SelectedLine is null)
+        {
+            ExportStatus = "No more lyric lines to mark.";
+            return;
+        }
+
+        SelectedLine.Start = position;
+        ExportStatus = $"Start set to {SelectedLine.StartDisplay}.";
+    }
+
+    public void HandleSpaceReleased()
+    {
+        if (!_isSpaceDown)
+        {
+            return;
+        }
+
+        _isSpaceDown = false;
+
+        if (!TryGetCurrentTime(out var position))
+        {
+            return;
+        }
+
+        if (SelectedLine is null)
+        {
+            ExportStatus = "Select a lyric line to mark.";
+            return;
+        }
+
+        SelectedLine.End = position;
+        ExportStatus = $"End set to {SelectedLine.EndDisplay}.";
+    }
+
     private async Task LoadAudioAsync()
     {
         var path = await PickFileAsync("Select WAV file", new[] { "wav" });
@@ -150,6 +218,8 @@ public sealed class MainWindowViewModel : ObservableObject
         }
 
         SelectedLine = LyricsLines.FirstOrDefault();
+        _hasStartedTiming = false;
+        _isSpaceDown = false;
         ExportStatus = LyricsLines.Count > 0
             ? $"Parsed {LyricsLines.Count} lyric lines."
             : "No lyric lines found.";
@@ -175,6 +245,21 @@ public sealed class MainWindowViewModel : ObservableObject
         }
     }
 
+    private void EnsurePlaying()
+    {
+        if (_outputDevice is null || _audioFile is null)
+        {
+            PlaybackStatus = "Load an audio file first.";
+            return;
+        }
+
+        if (_outputDevice.PlaybackState != PlaybackState.Playing)
+        {
+            _outputDevice.Play();
+            PlaybackStatus = "Playing";
+        }
+    }
+
     private void StopPlayback()
     {
         if (_outputDevice is null || _audioFile is null)
@@ -186,6 +271,8 @@ public sealed class MainWindowViewModel : ObservableObject
         _outputDevice.Stop();
         _audioFile.Position = 0;
         PlaybackStatus = "Stopped";
+        _hasStartedTiming = false;
+        _isSpaceDown = false;
     }
 
     private void MarkStart()
@@ -248,6 +335,27 @@ public sealed class MainWindowViewModel : ObservableObject
         {
             SelectedLine = LyricsLines[index + 1];
         }
+    }
+
+    private LyricLine? GetNextLine()
+    {
+        if (SelectedLine is null)
+        {
+            return LyricsLines.FirstOrDefault();
+        }
+
+        var index = LyricsLines.IndexOf(SelectedLine);
+        if (index < 0)
+        {
+            return LyricsLines.FirstOrDefault();
+        }
+
+        if (index < LyricsLines.Count - 1)
+        {
+            return LyricsLines[index + 1];
+        }
+
+        return null;
     }
 
     private async Task ExportSrtAsync()

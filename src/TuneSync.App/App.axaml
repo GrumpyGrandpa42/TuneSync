@@ -1,7 +1,9 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="TuneSync.App.App">
+             xmlns:simple="https://github.com/avaloniaui"
+             x:Class="TuneSync.App.App"
+             RequestedThemeVariant="Light">
   <Application.Styles>
-    <FluentTheme Mode="Light" />
+    <simple:SimpleTheme />
   </Application.Styles>
 </Application>
