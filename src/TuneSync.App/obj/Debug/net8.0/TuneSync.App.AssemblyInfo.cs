@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TuneSync.App")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9fb8378dc568db4be4cc6317c440d53af40a3be5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8002bc91d40b2498e4befcf596b0fbbc97dc43b0")]
 [assembly: System.Reflection.AssemblyProductAttribute("TuneSync.App")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TuneSync.App")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
