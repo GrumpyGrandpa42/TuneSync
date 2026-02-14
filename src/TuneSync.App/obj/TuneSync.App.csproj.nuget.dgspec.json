@@ -1,30 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Repos\\TuneSync\\src\\TuneSync.App\\TuneSync.App.csproj": {}
+    "/mnt/c/Repos/TuneSync/src/TuneSync.App/TuneSync.App.csproj": {}
   },
   "projects": {
-    "C:\\Repos\\TuneSync\\src\\TuneSync.App\\TuneSync.App.csproj": {
+    "/mnt/c/Repos/TuneSync/src/TuneSync.App/TuneSync.App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Repos\\TuneSync\\src\\TuneSync.App\\TuneSync.App.csproj",
+        "projectUniqueName": "/mnt/c/Repos/TuneSync/src/TuneSync.App/TuneSync.App.csproj",
         "projectName": "TuneSync.App",
-        "projectPath": "C:\\Repos\\TuneSync\\src\\TuneSync.App\\TuneSync.App.csproj",
-        "packagesPath": "C:\\Users\\dwayn\\.nuget\\packages\\",
-        "outputPath": "C:\\Repos\\TuneSync\\src\\TuneSync.App\\obj\\",
+        "projectPath": "/mnt/c/Repos/TuneSync/src/TuneSync.App/TuneSync.App.csproj",
+        "packagesPath": "/home/dwayne/.nuget/packages/",
+        "outputPath": "/mnt/c/Repos/TuneSync/src/TuneSync.App/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\dwayn\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/dwayne/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,13 +32,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "10.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -77,12 +66,23 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.23, 8.0.23]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.123/PortableRuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     }

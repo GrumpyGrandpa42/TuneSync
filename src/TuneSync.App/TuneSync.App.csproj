@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>..\Icon\TuneSync.ico</ApplicationIcon>
     <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
@@ -12,5 +13,10 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
     <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.10" />
     <PackageReference Include="NAudio" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="..\Icon\TuneSync.ico" Link="Assets\TuneSync.ico" />
+    <AvaloniaResource Include="..\Icon\5fa35ce7-723f-49f8-9708-0d121371f4b0.png" Link="Assets\TuneSync.png" />
   </ItemGroup>
 </Project>

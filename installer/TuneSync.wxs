@@ -1,0 +1,63 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+    Name="TuneSync"
+    Manufacturer="Grumpy Grandpa Productions"
+    Version="1.0.0"
+    UpgradeCode="{092DE301-8D2B-4B72-AE72-348DBB44E148}"
+    InstallScope="perMachine"
+    InstallPrivileges="elevated"
+    Compressed="yes" />
+
+  <MajorUpgrade DowngradeErrorMessage="A newer version of TuneSync is already installed." />
+  <MediaTemplate EmbedCab="yes" />
+
+  <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+  <Property Id="ARPPRODUCTICON" Value="TuneSyncIcon" />
+  <Icon Id="TuneSyncIcon" SourceFile="C:\Repos\TuneSync\src\Icon\TuneSync.ico" />
+
+  <StandardDirectory Id="ProgramFilesFolder">
+    <Directory Id="INSTALLFOLDER" Name="TuneSync">
+      <Component Id="MainExe" Guid="{CC096AF1-4EEC-4712-A845-5D5F6B939C17}">
+        <File Id="TuneSyncExe" Source="C:\Repos\TuneSync\src\TuneSync.App\bin\Release\net8.0\win-x64\publish\TuneSync.App.exe" KeyPath="yes" />
+        <Shortcut
+          Id="StartMenuShortcut"
+          Directory="AppProgramMenuFolder"
+          Name="TuneSync"
+          WorkingDirectory="INSTALLFOLDER"
+          Icon="TuneSyncIcon"
+          Advertise="no" />
+      </Component>
+      <Component Id="DesktopShortcutCmp" Guid="{C744B52B-F62A-4490-8F82-3AF52094A226}">
+        <Shortcut
+          Id="DesktopShortcut"
+          Directory="DesktopFolder"
+          Name="TuneSync"
+          WorkingDirectory="INSTALLFOLDER"
+          Icon="TuneSyncIcon"
+          Advertise="no" />
+        <RegistryValue Root="HKLM" Key="Software\GrumpyGrandpa\TuneSync" Name="DesktopShortcut" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </Directory>
+  </StandardDirectory>
+
+  <StandardDirectory Id="ProgramMenuFolder">
+    <Directory Id="AppProgramMenuFolder" Name="TuneSync">
+      <Component Id="ProgramMenuFolderCmp" Guid="{3CF9448E-08DA-41B6-A838-BF14C493A1AC}">
+        <RemoveFolder Id="RemoveProgramMenuFolder" On="uninstall" />
+        <RegistryValue Root="HKLM" Key="Software\GrumpyGrandpa\TuneSync" Name="ProgramMenu" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </Directory>
+  </StandardDirectory>
+
+  <Feature Id="MainFeature" Title="TuneSync" Level="1">
+    <ComponentRef Id="MainExe" />
+    <ComponentRef Id="ProgramMenuFolderCmp" />
+  </Feature>
+  <Feature Id="DesktopShortcutFeature" Title="Desktop Shortcut" Level="1" Absent="allow">
+    <ComponentRef Id="DesktopShortcutCmp" />
+  </Feature>
+
+  <UI>
+    <UIRef Id="WixUI_FeatureTree" />
+  </UI>
+</Wix>
