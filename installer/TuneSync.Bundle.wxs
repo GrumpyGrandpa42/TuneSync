@@ -1,0 +1,15 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+  <Bundle
+    Name="TuneSync"
+    Manufacturer="Grumpy Grandpa Productions"
+    Version="1.0.0"
+    UpgradeCode="{FD0BA966-807B-431F-AA05-7AC0AB0AD815}">
+    <BootstrapperApplication>
+      <bal:WixStandardBootstrapperApplication LicenseFile="license.rtf" />
+    </BootstrapperApplication>
+    <Chain>
+      <MsiPackage SourceFile="TuneSync.msi" />
+    </Chain>
+  </Bundle>
+</Wix>
